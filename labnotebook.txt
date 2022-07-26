@@ -87,5 +87,10 @@ these are the runs:
     #SBATCH --ntasks-per-node=1         ### Number of tasks to be launched per Node
     #SBATCH --account=bgmp              ### Account used for job submission
 
+While it's running, moving onto next part to count the number of N in the files
+$ zcat /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R1_001.fastq.gz | sed -n '4~4p'| grep -o "N" | grep -c
 
+starting some new runs without 
+        #SBATCH --time=0-02:00:00           ### Wall clock time limit in Days-HH:MM:SS
+and with the timers and directing .err and .out files into directory output/
 

@@ -1,5 +1,4 @@
 
-from statistics import mean
 import numpy as np
 import bioinfo as b
 import matplotlib.pyplot as plt
@@ -41,13 +40,8 @@ def mean_qscores(file, reads):
             line = line.strip()
             if file_line%4==0:
                 lin_arr = np.array(list(line))
-                # print(lin_arr)
-                # q_scores += b.convert_phred(line)
-                # print(q_totals)
                 for index in range(len(lin_arr)):
                     q_totals[index] += b.convert_phred(lin_arr[index])
-    # print(q_totals)
-    # print(q_totals/reads)
     return q_totals/reads
 
 def plot_dists(arr):

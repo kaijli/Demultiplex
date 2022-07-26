@@ -5,15 +5,15 @@
 
 | File name | label | Read length | Phred encoding |
 |---|---|---|---|
-| 1294_S1_L008_R1_001.fastq.gz | read1 | 101 |  |
-| 1294_S1_L008_R2_001.fastq.gz | index1 | 8 |  |
-| 1294_S1_L008_R3_001.fastq.gz | index2 | 8 |  |
-| 1294_S1_L008_R4_001.fastq.gz | read2 | 101 |  |
+| 1294_S1_L008_R1_001.fastq.gz | read1 | 101 | 33 |
+| 1294_S1_L008_R2_001.fastq.gz | index1 | 8 | 33 |
+| 1294_S1_L008_R3_001.fastq.gz | index2 | 8 | 33 |
+| 1294_S1_L008_R4_001.fastq.gz | read2 | 101 | 33 |
 
 2. Per-base NT distribution
     1. Use markdown to insert your 4 histograms here.
-    2. **YOUR ANSWER HERE**
-    3. **YOUR ANSWER HERE**
+    2. What is a good quality score cutoff for index reads and biological read pairs to utilize for sample identification and downstream analysis, respectively? Justify your answer.
+    3. How many indexes have undetermined (N) base calls? (Utilize your command line tool knowledge. Submit the command(s) you used. CHALLENGE: use a one-line command)
     
 ## Part 2
 1. Define the problem
