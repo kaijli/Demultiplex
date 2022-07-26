@@ -1,0 +1,51 @@
+Demultiplex
+
+Part 1 – Quality Score Distribution per-nucleotide
+
+07/26/2022
+Initial data exploration:
+used:
+$ zcat 1294_S1_L008_R1_001.fastq.gz | less -S
+to take a precursory look at the fastq file
+Don't do a wc -l on the login node, if we want a line count, do it in an interactive session
+the file is more than 300 million reads
+$ ls -lah
+    total 47G
+    drwxrwsr-x+  3 coonrod  bgmp 8.0K Jul 30  2018 .
+    drwxrws--x+ 38 sdwagner bgmp 8.0K Jul  1 10:55 ..
+    -rw-rwxr--+  1 coonrod  bgmp  20G Jul 30  2018 1294_S1_L008_R1_001.fastq.gz
+    -rw-rwxr--+  1 coonrod  bgmp 2.6G Jul 30  2018 1294_S1_L008_R2_001.fastq.gz
+    -rw-rwxr--+  1 coonrod  bgmp 2.8G Jul 30  2018 1294_S1_L008_R3_001.fastq.gz
+    -rw-rwxr--+  1 coonrod  bgmp  23G Jul 30  2018 1294_S1_L008_R4_001.fastq.gz
+    drwx--S---+  2 coonrod  bgmp 8.0K Jul  1 16:08 demultiplexed
+    -rwxrwxr-x+  1 sdwagner bgmp  631 Aug  9  2021 indexes.txt
+    -rw-rwxr--+  1 coonrod  bgmp  327 Aug 16  2017 README.txt
+
+these are gigantic files. 
+to get the read length:
+    $ zcat 1294_S1_L008_R1_001.fastq.gz | head -2 | tail -1 | wc
+            1       1     102 #include new line character
+    $ zcat 1294_S1_L008_R2_001.fastq.gz | head -2 | tail -1 | wc
+            1       1     9
+    $ zcat 1294_S1_L008_R3_001.fastq.gz | head -2 | tail -1 | wc
+            1       1     9
+    $ zcat 1294_S1_L008_R4_001.fastq.gz | head -2 | tail -1 | wc
+            1       1     102
+
+First read in each file from same location, headers all look the same except for counter [1,4]
+Must read all at the same time. 
+The indexes / barcodes will be found at the beginning and ends of the line?
+is it the barcode itself at the beginning and rev comp at the end?
+taking a look at one of the barcodes:
+$ zcat 1294_S1_L008_R4_001.fastq.gz | grep "^CACTTCAC"
+    CACTTCACCTAGAAAGTGCAAAATTCTTTGTTTTATGAATAAAATATAAGATAACACAAAATGTTTCAGAATGTATAGCCTTTGTTGGTTGGAGATGATTT
+    CACTTCACTCTGTACCTGTAGCAAGGTCTGCCAACTCTATGGCTGCCGCACATGCATCTGGCCCTCCCTCTCTGTCCTGGGGTCCTCAGCGTGCTGTCTCC
+    CACTTCACGAGAGGACAAATGCCACCTCTCAGCTGCATCTTGAAGCTGGTCACTTCTGGGTCTGTGGCAGGCATTCGTCAATGGCCCAGTGCAGTTCTCTG
+
+i don't see the barcode at the end though...
+
+to test whether it's phred 33 or 64:
+$ zcat 1294_S1_L008_R1_001.fastq.gz | sed -n '4~4p' | grep -E "[a-z]+"
+
+this did not return any results, so there are no lower case letters, which would indicate the encoding is 33
+
