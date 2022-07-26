@@ -49,3 +49,6 @@ $ zcat 1294_S1_L008_R1_001.fastq.gz | sed -n '4~4p' | grep -E "[a-z]+"
 
 this did not return any results, so there are no lower case letters, which would indicate the encoding is 33
 
+Also, # are only in 33, not 64, so it's another one to grep for. 
+
+wrote rev_comp function in both bioinfo.py and python script for qscore Distribution
