@@ -1,0 +1,18 @@
+#!/bin/bash
+#SBATCH --partition=bgmp            ### Partition (like a queue in PBS)
+#SBATCH --job-name=qdist            ### Job Name
+#SBATCH --output=qdist_%j.out        ### File in which to store job output
+#SBATCH --error=qdist_%j.err         ### File in which to store job error messages
+#SBATCH --time=0-02:00:00           ### Wall clock time limit in Days-HH:MM:SS
+#SBATCH --nodes=1                   ### Number of nodes needed for the job
+#SBATCH --ntasks-per-node=1         ### Number of tasks to be launched per Node
+#SBATCH --account=bgmp              ### Account used for job submission
+ 
+conda activate bgmp_py310
+conda install matplotlib
+conda install numpy
+
+py_path="/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/Assignment-the-first/distr_q.py"
+data_path="/projects/bgmp/shared/2017_sequencing"
+
+/usr/bin/time -v python $py_path -f $1 -r $2 -i $3
