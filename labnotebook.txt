@@ -1,8 +1,18 @@
-Demultiplex
 
-Part 1 – Quality Score Distribution per-nucleotide
+------------------------------------
+*            Demultiplex           *
+------------------------------------
 
-07/26/2022
+Run interactive session in talaps:
+$ srun --account=bgmp --partition=bgmp --nodes=1 --ntasks-per-node=1 --time=1:00:00 --cpus-per-task=1 --pty bash
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++
++ Part 1 – Quality Score Distribution per-nucleotide +
+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+------------------------------------------------------
+--> 07/26/2022 <--
+------------------------------------------------------
 Initial data exploration:
 used:
 $ zcat 1294_S1_L008_R1_001.fastq.gz | less -S
@@ -52,3 +62,30 @@ this did not return any results, so there are no lower case letters, which would
 Also, # are only in 33, not 64, so it's another one to grep for. 
 
 wrote rev_comp function in both bioinfo.py and python script for qscore Distribution
+
+modified PS4 and PS9 scripts to calculate mean quality scores of a position from fq files
+ran python script using sbatch on talapas
+i forgot to time the runs. 
+
+these are the runs:
+    $ sbatch qdist.srun /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R1_001.fastq.gz 101 6
+    Submitted batch job 21725458
+    $ sbatch qdist.srun /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R4_001.fastq.gz 101 7
+    Submitted batch job 21725461
+    $ sbatch qdist.srun /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R2_001.fastq.gz 8 8
+    Submitted batch job 21725462
+    $ sbatch qdist.srun /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R3_001.fastq.gz 8 9
+    Submitted batch job 21725463
+
+    #!/bin/bash
+    #SBATCH --partition=bgmp            ### Partition (like a queue in PBS)
+    #SBATCH --job-name=qdist            ### Job Name
+    #SBATCH --output=qdist_%j.out        ### File in which to store job output
+    #SBATCH --error=qdist_%j.err         ### File in which to store job error messages
+    #SBATCH --time=0-02:00:00           ### Wall clock time limit in Days-HH:MM:SS
+    #SBATCH --nodes=1                   ### Number of nodes needed for the job
+    #SBATCH --ntasks-per-node=1         ### Number of tasks to be launched per Node
+    #SBATCH --account=bgmp              ### Account used for job submission
+
+
+
