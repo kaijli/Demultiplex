@@ -94,3 +94,12 @@ starting some new runs without
         #SBATCH --time=0-02:00:00           ### Wall clock time limit in Days-HH:MM:SS
 and with the timers and directing .err and .out files into directory output/
 
+both runs of index files finished, with runtimes of around 54 minutes. 
+this was job job21725647 and job21725648, which were hist 12 and 13, respectively. 
+compared to the other two index runs, hist8 and hist9, they look the same for the correct files. 
+
+the first two bio runs without the timer don't seem to have output a histogram and also seem to have exited the queue. 
+too bad i don't know what happened bc the .out and .err are not super helpful :(
+
+luckily, the most recent two bio runs, 21725645 and 21725643 are still going, this is at 5 hrs and 7 minutes now.
+
