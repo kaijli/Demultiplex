@@ -103,3 +103,23 @@ too bad i don't know what happened bc the .out and .err are not super helpful :(
 
 luckily, the most recent two bio runs, 21725645 and 21725643 are still going, this is at 5 hrs and 7 minutes now.
 
+------------------------------------------------------
+--> 07/27/2022 <--
+------------------------------------------------------
+
+the biological portion took 7:39:20 to run. exited without errors. 
+changed N counting to run with an sbatch because it kept timing out
+this way i can keep track of how long it takes to run, too
+here's the first version of the bash script:
+        #!/bin/bash
+        #SBATCH --partition=bgmp            ### Partition (like a queue in PBS)
+        #SBATCH --job-name=countN            ### Job Name
+        #SBATCH --output=output/countN_%j.out        ### File in which to store job output
+        #SBATCH --error=output/countN_%j.err         ### File in which to store job error messages
+        #SBATCH --nodes=1                   ### Number of nodes needed for the job
+        #SBATCH --ntasks-per-node=1         ### Number of tasks to be launched per Node
+        #SBATCH --account=bgmp              ### Account used for job submission
+
+        conda activate bgmp_py310
+        /usr/bin/time -v zcat $1 | sed -n '4~4p'| grep -o "N" | wc
+

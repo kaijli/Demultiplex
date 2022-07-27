@@ -1,0 +1,42 @@
+De-multiplex and report index hopping
+
+open all 4 fastq files and read lines in parallel
+    collect set of 4 lines at a time for each file (ps5?)
+    for each nth record
+        check if any Q-score in all lines currently reading are less than cutoff
+            Write to r1 r2 unknown fq files
+        check if index1 is in set of known indexes
+            if not one of known idexes,
+                send records to unknown files
+            if one of known indexes,
+                check if index2 is set of reverse complement of known indexes
+                    not in reverse complement set
+                        send records to unknown files
+                    in reverse complement set
+                        if it matches rev comp of index1,
+                            write to matched files
+                        if doesn't match rev comp of index1,
+                            write to unmatched files
+        check if indexes don't match each other
+            write to r1 r2 unmatched fq files
+        check if indexes match each other
+            write to individual r1, r2, index pair fq files
+        
+
+collection of known indexes is written to a set
+a second set is written of the reverse complements
+much faster to parse through than list, array, or dictionary
+no need for it to be ordered
+still use rev_comp in loops
+
+collecting records (see ps5 for example, don't use readlines)
+initialize 4 different lists
+while reading through each line,
+keep line count
+use line count to know which line to put into each position in list
+after adding 4th line,
+start loop to analyze indexes. 
+
+
+reverse complement function
+

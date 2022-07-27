@@ -1,0 +1,11 @@
+#!/bin/bash
+#SBATCH --partition=bgmp            ### Partition (like a queue in PBS)
+#SBATCH --job-name=countN            ### Job Name
+#SBATCH --output=output/countN_%j.out        ### File in which to store job output
+#SBATCH --error=output/countN_%j.err         ### File in which to store job error messages
+#SBATCH --nodes=1                   ### Number of nodes needed for the job
+#SBATCH --ntasks-per-node=1         ### Number of tasks to be launched per Node
+#SBATCH --account=bgmp              ### Account used for job submission
+
+conda activate bgmp_py310
+/usr/bin/time -v zcat $1 | sed -n '4~4p'| grep -o "N" | wc
