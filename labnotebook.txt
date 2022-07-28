@@ -131,4 +131,4 @@ wrote psuedo code with Rachel, Jessica, Justine, Sam, and Lisa
 writing unit tests to check for various combinations of conditions
 countN still hasn't run properly yet, working on trouble shooting to see if grep is the issue
 it seems from the first timer that it took around 11 minutes to run for read files.
-took around 3 minutes to run for index files. g
+took around 3 minutes to run for index files. 

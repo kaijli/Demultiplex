@@ -12,16 +12,16 @@ i1_record4
 unknown bc N, high quality
 
 i1_record5
-known, match, low quality
+known, match, low quality --> unknown
 
 i1_record6
-known, match, high quality
+known, match, high quality --> matched
 
 i1_record7
-known, nonmatch, low quality
+known, nonmatch, low quality --> unknown
 
 i1_record8
-known, nonmatch, high quality
+known, nonmatch, high quality --> nonmatch
 
 i1_record9
 known, match, high quality, low quality read1
