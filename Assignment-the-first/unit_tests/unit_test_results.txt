@@ -1,0 +1,30 @@
+unit test info:
+i1_record1: 
+unknown, low quality:   
+
+i1_record2: i2_record2
+unknown bc N, low quality:  
+
+i1_record3
+unknown, high quality
+
+i1_record4
+unknown bc N, high quality
+
+i1_record5
+known, match, low quality
+
+i1_record6
+known, match, high quality
+
+i1_record7
+known, nonmatch, low quality
+
+i1_record8
+known, nonmatch, high quality
+
+i1_record9
+known, match, high quality, low quality read1
+
+i1_record10
+known, match, high quality, high quality read1

@@ -7,5 +7,10 @@
 #SBATCH --ntasks-per-node=1         ### Number of tasks to be launched per Node
 #SBATCH --account=bgmp              ### Account used for job submission
 
+read1='/projects/bgmp/shared/2017_sequencing/1294_S1_L008_R1_001.fastq.gz'
+index1='/projects/bgmp/shared/2017_sequencing/1294_S1_L008_R2_001.fastq.gz'
+index2='/projects/bgmp/shared/2017_sequencing/1294_S1_L008_R3_001.fastq.gz'
+read2='/projects/bgmp/shared/2017_sequencing/1294_S1_L008_R4_001.fastq.gz'
+
 conda activate bgmp_py310
-/usr/bin/time -v zcat $1 | sed -n '4~4p'| grep -o "N" | wc
+/usr/bin/time -v zcat $read1 | sed -n '4~4p'| grep -o "N" 

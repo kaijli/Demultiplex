@@ -39,4 +39,7 @@ start loop to analyze indexes.
 
 
 reverse complement function
-
+    input sequence string (ACGT)
+    check if string is sequence
+        ouput reverse complement (TGCA)
+        return reverse complement string 
