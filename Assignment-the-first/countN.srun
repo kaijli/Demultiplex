@@ -13,4 +13,5 @@ index2=/projects/bgmp/shared/2017_sequencing/1294_S1_L008_R3_001.fastq.gz
 read2=/projects/bgmp/shared/2017_sequencing/1294_S1_L008_R4_001.fastq.gz
 
 conda activate bgmp_py310
-/usr/bin/time -v zcat $read1 | sed -n '4~4p'| grep -o 'N'
+/usr/bin/time -v zcat $index1 | sed -n '2~4p'| grep -c 'N'
+/usr/bin/time -v zcat $index2 | sed -n '2~4p'| grep -c 'N'

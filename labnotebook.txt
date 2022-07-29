@@ -1,4 +1,3 @@
-
 ------------------------------------
 *            Demultiplex           *
 ------------------------------------
@@ -132,3 +131,6 @@ writing unit tests to check for various combinations of conditions
 countN still hasn't run properly yet, working on trouble shooting to see if grep is the issue
 it seems from the first timer that it took around 11 minutes to run for read files.
 took around 3 minutes to run for index files. 
+
+so apparently i'm just supposed to count the indexes that contain Ns. rip. changed grep to -c "N"
+it took around 3 minutes for each index file. 

@@ -13,9 +13,12 @@
 2. Per-base NT distribution
     1. Use markdown to insert your 4 histograms here.
     2. What is a good quality score cutoff for index reads and biological read pairs to utilize for sample identification and downstream analysis, respectively? Justify your answer.
-    A quality score above 30 is a good cutoff for index and biological reads because it's a standard cutoff for higher quality reads. 
+    A quality score around 25-30 is a good cutoff for index and biological reads because it's a standard cutoff often seen in papers and studies published in the past several years.  
 
     3. How many indexes have undetermined (N) base calls? (Utilize your command line tool knowledge. Submit the command(s) you used. CHALLENGE: use a one-line command)
+    /usr/bin/time -v zcat ($index1 or $index2) | sed -n '2~4p'| grep -c 'N'
+    index1: 3976613
+    index2: 3328051 
     
 ## Part 2
 1. Define the problem
