@@ -134,3 +134,25 @@ took around 3 minutes to run for index files.
 
 so apparently i'm just supposed to count the indexes that contain Ns. rip. changed grep to -c "N"
 it took around 3 minutes for each index file. 
+
+------------------------------------------------------
+--> 07/29/2022 <--
+------------------------------------------------------
+Looking at the current histograms, the y-axis is absolutely wrong. 
+it's supposed to be 0 to 40, but instead it goes up to 2 trillion.
+since I have some unit test files now, i'll try my code again on that to see if it works.
+the issue was i was dividing by number of reads rather than by number of records. 
+rerunning:
+(base) [kli8@talapas-ln1 Assignment-the-first]$ sbatch qdist.srun /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R1_001.fastq.gz 101 0
+Submitted batch job 21758626
+(base) [kli8@talapas-ln1 Assignment-the-first]$ sbatch qdist.srun /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R2_001.fastq.gz 8 1
+Submitted batch job 21758627
+(base) [kli8@talapas-ln1 Assignment-the-first]$ sbatch qdist.srun /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R3_001.fastq.gz 8 2
+Submitted batch job 21758628
+(base) [kli8@talapas-ln1 Assignment-the-first]$ sbatch qdist.srun /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R4_001.fastq.gz 101 3
+Submitted batch job 21758629
+
+it took about 3 minutes for a 10 record index, so for 100s of millions of lines, it'll take... well. a lot longer.
+it took 52 minutes for the index runs and 7 hrs and 43 minutes for the read runs.
+those times could be a lot better, i've heard other people talk about 2 or 3 hours. 
+it'll do for now.

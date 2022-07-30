@@ -31,18 +31,19 @@ def mean_qscores(file, reads):
     read position in a numpy array. 
     '''
     q_totals = np.zeros(reads, dtype=np.float64)
-    with gzip.open(file,"r") as fh: 
+    with gzip.open(file,"r") as fh:  # comment out for non zipped test files.
     # with open(file,"r") as fh: 
         file_line = 0
         for line in fh:
             file_line +=1
-            line = line.decode()
+            line = line.decode()   # comment out for non zipped test files.
             line = line.strip()
             if file_line%4==0:
                 lin_arr = np.array(list(line))
                 for index in range(len(lin_arr)):
                     q_totals[index] += b.convert_phred(lin_arr[index])
-    return q_totals/reads
+        q_avgs = q_totals/(file_line/4)
+    return q_avgs
 
 def plot_dists(arr):
     '''

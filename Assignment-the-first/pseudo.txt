@@ -37,9 +37,23 @@ collecting records (see ps5 for example, don't use readlines)
         after adding 4th line,
         start loop to analyze indexes. 
 
+5. High level functions. For each function, be sure to include:
+    1. Description/doc string
+    2. Function headers (name and parameters)
+    3. Test examples for individual functions
+    4. Return statement
 
-reverse complement function
+reverse complement function (takes a sequence string, returns string)
+    '''
+    This function takes a string, checks that it's a DNA or RNA sequence,
+    and returns the correct reverse complement of the sequence. 
+    '''
     input sequence string (ACGT)
     check if string is sequence
+        reverse string
+        match base pairs
         ouput reverse complement (TGCA)
         return reverse complement string 
+
+    assert rev_comp("ACTGGTCACA") == "TGTGACCAGT", "Reverse complement does not work on DNA"
+    assert rev_comp("ACUGGUCACA", True) == "UGUGACCAGU", "Reverse complement does not work on RNA"

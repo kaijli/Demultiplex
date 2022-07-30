@@ -29,7 +29,8 @@ def init_arr(size: int):
         
 def convert_phred(letter: str, coding: int = 33) -> int:
     """Converts a single character into a phred score"""
-    return ord(letter)-coding
+    value = ord(letter)-coding
+    return value
 
 def qual_score(phred_score: str) -> float:
     """This function takes unmodified phred_score string as parameter and calculates the average quality
@@ -100,6 +101,7 @@ if __name__ == "__main__":
 
     print("Passed DNA and RNA tests")
     print("Passed phred tests")
+# tests for 1 line fa files
     with open("tester.txt", "w") as fh:
         fh.write(">lakjdfkjhskjfdhlk\n")
         fh.write("alsdhflkuhsdjfhlsdjf\n")
