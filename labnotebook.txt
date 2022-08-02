@@ -213,3 +213,20 @@ so for phred score, it could be
 The "A1", "B1", etc associated with the index is sample ID 
 should assign key as index seq and ID as value in dict
 for naming the files for end user. 
+made a short with open() code that transforms two column tsv
+with sample id, index into dictionary(index, sampleID)
+
+looking up how to be more efficient in opening and reading 4 lines at a time
+        https://stackoverflow.com/questions/6335839/python-how-to-read-n-number-of-lines-at-a-time
+        islice() can be used to get the next n items of an iterator. 
+        Thus, list(islice(f, n)) will return a list of the next n lines of the file f. 
+        Using this inside a loop will give you the file in chunks of n lines. 
+        At the end of the file, the list might be shorter, and finally the call will return an empty list.
+        
+        from itertools import islice
+        with open(...) as f:
+        while True:
+                next_n_lines = list(islice(f, n))
+                if not next_n_lines:
+                break
+                # process next_n_lines

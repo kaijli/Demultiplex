@@ -88,3 +88,32 @@ B7	TATGGCAC    A3	TGTTCCGT    B4	GTCCTAAG
 A12	TCGACAAG    C10	TCTTCGAC    A2	ATCATGCG
 C2	ATCGTGGT    A10	TCGAGAGT    B8	TCGGATTC
 A7	GATCTTGC    B10	AGAGTCCA    A8	AGGATAGC
+
+need to write some code to open all 52 files at once
+collect indexes in dictionary with index, sample id
+r1_files = dict()
+r2_files = dict() 
+or write_files = dict()?
+for each index in sampleIDs dictionary keys,
+    r1 file name = f"r1_{sampleID}.fq"
+    r1 shorthand = r1_{sampleID}
+    r2 file name = "r2_{sampleID}.fq"
+    r2 shorthand = r1_{sampleID}
+    add to dictionary r1_files = index, filename
+    add to dictionary r2_files = index, filename
+    # or filesname can be r1_sampleID, and with open can be f"{name}.fq"
+
+    filename = open(filename.fq, "w")
+
+all the other stuff
+
+
+@ end of file
+
+for each index in r1 files dictionary:
+    filename.close()
+
+
+
+
+

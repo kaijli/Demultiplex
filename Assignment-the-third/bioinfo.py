@@ -12,6 +12,7 @@ __version__ = "0.6"         # Read way more about versioning here:
                             # https://en.wikipedia.org/wiki/Software_versioning
 
 import numpy as np
+import itertools as it
 
 DNAbases = set('ACGTNacgtn') #each individual base as capital or lowercase
 RNAbases = set('ACGUNacgun')
@@ -20,7 +21,7 @@ RNAcomplement = {'A': 'U', 'C': 'G', 'G': 'C', 'U': 'A', 'N':'N'}
 
 print("in my Bioinfo module, __name__ is:", __name__)
 
-def init_arr(size: int):
+def init_arr(size: int) -> np.ndarray:
     """
     initiates a numpy array based off requested size.
     """
@@ -40,7 +41,7 @@ def qual_score(phred_score: str) -> float:
         total+=convert_phred(phred_score[index])
     return total/len(phred_score)
 
-def qs_arr(phred_score: str) -> float:
+def qs_arr(phred_score: str) -> np.ndarray:
     """This function takes unmodified phred_score string as parameter and returns an array
     containing each score position translated to its quality score"""
     arr = np.zeros(int(len(phred_score)), dtype=np.float64)
@@ -57,7 +58,7 @@ def gc_content(seq: str) -> float:
     gc_bases = seq.count('C') + seq.count('G')
     return gc_bases/len(seq)
 
-def oneline_fasta(filein, fileout):
+def oneline_fasta(filein: str, fileout: str):
     '''
     Thie function takes a fasta file where the sequences have line breaks in them.
     It takes two filenames, and makes a new files with the name input second. 
@@ -78,7 +79,7 @@ def oneline_fasta(filein, fileout):
         for header, seq in collect_seqs.items():
             fh.write(f"{header}\n{seq}\n")
 
-def rev_comp(seq: str, RNAflag: bool = False):
+def rev_comp(seq: str, RNAflag: bool = False) -> str:
     """
     Takes a sequence and returns its reverse compliment.
     Not case sensitive.
@@ -92,6 +93,28 @@ def rev_comp(seq: str, RNAflag: bool = False):
         else:
             reverse_complement = "".join(RNAcomplement.get(base, base) for base in reversed(seq))
     return reverse_complement
+
+def check_index(index: str, index_set: set) -> bool:
+    '''
+    takes an index string and checks if it's in a set of indexes
+    '''
+    known = False
+    if index in index_set:
+        known = True
+    return known
+
+def check_qscores(phred_score: str, cutoff: int = 30) -> bool:
+    '''
+    checks if any q score in phred string is below cutoff
+    cutoff is inclusive
+    '''
+    good = False
+    arr = qs_arr(phred_score)
+    new_arr = np.array(it.takewhile(lambda x: x >=cutoff, arr))
+    if np.array_equal(arr, new_arr):
+        good = True
+    return good
+
 
 import os
 # __name__ is name associated with all the code. behind the scenes python thing
