@@ -156,3 +156,60 @@ it took about 3 minutes for a 10 record index, so for 100s of millions of lines,
 it took 52 minutes for the index runs and 7 hrs and 43 minutes for the read runs.
 those times could be a lot better, i've heard other people talk about 2 or 3 hours. 
 it'll do for now.
+
+------------------------------------------------------
+--> 08/02/2022 <--
+------------------------------------------------------
+open files at top and not in loops, it's a lot faster. 
+check N, then Q Score, bc N will have bad Q Scores by default.
+
+
+Got some feedback for pseudo code:
+
+Lines 20 to 23 - done
+"It looks like you do this twice, first in lines 16-19, then 20-23. I think you could just remove that last block."
+
+Line 19 - done
+"I assume you mean the index hopped file?" - for unmatched
+
+Line 6 - done
+"Might be more efficient to only check for the Q score cutoff in reads with indexes in the known set, 
+so you're not calculating it for every read when invalid indexes are already going to the unknown file."
+
+Lines 32 to 38 - unsure that this is asking
+"Is this faster than writing out to the file each loop? (I'm asking bc I don't know, not bc it's wrong!)
+Also each time you write out to a file, don't forget to add to the header index1_revcomp(index2)"
+
+Lines 26 to 27
+"Is it necessary to have 2 sets? maybe you could call your reverse complement function on your 1st set (forward) 
+in your code when you get to the step where you're checking the index2 against the set. Either is fine though."
+
+Lines 6 to 7
+"I think you need a counter in this line, and maybe at some other points too."
+
+Line 32  - done
+"Looks like this could be a function to collect the records from the files, especially as there are 4 input files!"
+
+Line 7
+"Missing the counts of the number of matched, unmatched, and unknown reads: "report the number of read-pairs with 
+properly matched indexes (per index-pair), the number of read pairs with index-hopping observed, and the number of 
+read-pairs with unknown index(es)." Consider counter variables, and if you'll return the counts or write them to an output file."
+
+to open multiple files at a time, can use this syntax:
+with (
+    open("a", "w") as a,
+    open("b", "w") as b
+):
+
+leslie recommends using itertools
+
+some useful functions could be:
+takewhile(lambda x: x<5, [1,4,6,4,1]) --> 1 4
+so for phred score, it could be 
+        takewhile(lambda x: x>=30, phred_arr)
+        # breaks when phred arr has qscore less than 30
+
+
+The "A1", "B1", etc associated with the index is sample ID 
+should assign key as index seq and ID as value in dict
+for naming the files for end user. 

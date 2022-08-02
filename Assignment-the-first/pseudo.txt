@@ -1,26 +1,27 @@
 De-multiplex and report index hopping
 
 open all 4 fastq files and read lines in parallel
+    r1 r2 hopped, unknown record counts = 0
+    r1 r2 matched count dict = {}
     collect set of 4 lines at a time for each file (ps5?)
     for each nth record
-        check if any Q-score in index record currently reading are less than cutoff
-            Write to r1 r2 unknown fq files
         check if index1 is in set of known indexes
             if not one of known idexes,
                 send records to unknown files
             if one of known indexes,
-                check if index2 is set of reverse complement of known indexes
-                    not in reverse complement set
-                        send records to unknown files
-                    in reverse complement set
-                        if it matches rev comp of index1,
-                            write to matched files
-                        if doesn't match rev comp of index1,
-                            write to unmatched files
-        check if indexes don't match each other
-            write to r1 r2 unmatched fq files
-        check if indexes match each other
-            write to individual r1, r2, index pair matched fq files
+                check if any Q-score in index record currently reading are less than cutoff
+                    if lower score
+                        write to unknown
+                    if higher score
+                        check if index2 is set of reverse complement of known indexes
+                            not in reverse complement set
+                                send records to unknown files
+                            in reverse complement set
+                                if it matches rev comp of index1,
+                                    write to matched files
+                                if doesn't match rev comp of index1,
+                                    write to hopped files
+        
         
 
 collection of known indexes is written to a set
@@ -57,3 +58,33 @@ reverse complement function (takes a sequence string, returns string)
 
     assert rev_comp("ACTGGTCACA") == "TGTGACCAGT", "Reverse complement does not work on DNA"
     assert rev_comp("ACUGGUCACA", True) == "UGUGACCAGU", "Reverse complement does not work on RNA"
+
+def write file (take fastq record(S), category, return confirmation)
+    '''
+    This function takes a fastq record in the format of a list
+    and makes or write to a file.
+    '''
+    r1_filename = r1_(matched,unmatched,unknown)_index1[seq]_revcomp(index2[seq]).fq
+    r2_filename = r2_(matched,unmatched,unknown)_index1[seq]_revcomp(index2[seq]).fq
+    with open both files using append (rather than write):
+        write header, seq, plus, and phred in separate lines. 
+        new line character after each list item
+
+def phred line converter (take phred string, return array of values)
+    phred_arr is size length of string
+    for each letter in the string,
+        put q score into index of phred arr
+
+
+The "A1", "B1", etc associated with the index is sample ID 
+should assign key as index seq and ID as value in dict
+for naming the files for end user. 
+
+B1	GTAGCGTA    A5	CGATCGAT    C1	GATCAAGG
+B9	AACAGCGA    C9	TAGCCATG    C3	CGGTAATC
+B3	CTCTGGAT    C4	TACCGGAT    A11	CTAGCTCA
+C7	CACTTCAC    B2	GCTACTCT    A1	ACGATCAG
+B7	TATGGCAC    A3	TGTTCCGT    B4	GTCCTAAG
+A12	TCGACAAG    C10	TCTTCGAC    A2	ATCATGCG
+C2	ATCGTGGT    A10	TCGAGAGT    B8	TCGGATTC
+A7	GATCTTGC    B10	AGAGTCCA    A8	AGGATAGC
