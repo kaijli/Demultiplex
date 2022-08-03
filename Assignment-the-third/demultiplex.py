@@ -30,11 +30,12 @@ style = args.cutoffstyle
 '''
 test files
 '''
-# index1 = "/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/Assignment-the-first/unit_tests/i1_unit_test.fq"
-# index2 = "/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/Assignment-the-first/unit_tests/i2_unit_test.fq"
-# read1 = "/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/Assignment-the-first/unit_tests/r1_unit_test.fq"
-# read2 = "/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/Assignment-the-first/unit_tests/r2_unit_test.fq"
-# known = "indexes.txt"
+
+# index1 = "/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/TEST-input_FASTQ/i1_unit_test.fq"
+# index2 = "/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/TEST-input_FASTQ/i2_unit_test.fq"
+# read1 = "/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/TEST-input_FASTQ/r1_unit_test.fq"
+# read2 = "/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/TEST-input_FASTQ/i2_unit_test.fq"
+# known = "indexes_ids.txt"
 
 '''
 define and set variables
