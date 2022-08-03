@@ -62,9 +62,10 @@ print(indexes)
 open 4 files in parallel
 need to open all files in parallel
 '''
-write_files = {index:(open(f"fq_out/r1_{sampleID}_{index}.fq"), open(f"fq_out/r2_{sampleID}_{index}.fq")) for (index, sampleID) in index_IDs.items()}
-write_files["hopped"] = (open(f"fq_out/r1_hopped.fq"), open(f"fq_out/r2_hopped.fq"))
-write_files["unknown"] = (open(f"fq_out/r1_unknown.fq"), open(f"fq_out/r2_unknown.fq"))
+# dict_variable = {key:value for (key,value) in dictionary.items()}
+write_files = {index:(open(f"fq_out/r1_{sampleID}_{index}.fq", "w"), open(f"fq_out/r2_{sampleID}_{index}.fq", "w")) for (index, sampleID) in index_IDs.items()}
+write_files["hopped"] = (open(f"fq_out/r1_hopped.fq", "w"), open(f"fq_out/r2_hopped.fq", "w"))
+write_files["unknown"] = (open(f"fq_out/r1_unknown.fq", "w"), open(f"fq_out/r2_unknown.fq", "w"))
 
 def write_fqs(category:str, r1_rec: np.ndarray, r2_rec: np.ndarray):
     '''
@@ -78,6 +79,10 @@ def write_fqs(category:str, r1_rec: np.ndarray, r2_rec: np.ndarray):
     for line in r2_rec[1:]:
         write_files[category][1].write(f"{line}\n")
 
+def collect_record(file):
+    # def next_n_lines(file_opened, N):
+    return np.array([x.strip() for x in it.islice(file, 4)])
+
 with (
     open(read1, "r") as r1,
     open(index1, "r") as i1,
@@ -90,11 +95,12 @@ with (
         '''
         hopped, unknown = 0,0
         matched = dict()
-        r1_rec = np.array(it.islice(r1, 4))
-        r2_rec = np.array(it.islice(r2, 4))
-        i1_rec = np.array(it.islice(i1, 4))
-        i2_rec = np.array(it.islice(i2, 4))
-        if not r1_rec:
+        r1_rec = collect_record(r1)
+        r2_rec = collect_record(r2)
+        i1_rec = collect_record(i1)
+        i2_rec = collect_record(i2)
+        print(i2_rec)
+        if np.size(r1_rec)==0:
             break
             
         '''
