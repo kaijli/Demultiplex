@@ -230,3 +230,36 @@ looking up how to be more efficient in opening and reading 4 lines at a time
                 if not next_n_lines:
                 break
                 # process next_n_lines
+
+------------------------------------------------------
+--> 08/03/2022 <--
+------------------------------------------------------
+wrote functinos for writing out to fqs, collecting records, and checking
+indexes for qscore and matching. the first two are in the demux py file
+the other two are in the bioinfo py file. 
+Worked with Jacob, Rachel, Justine, and Lisa on opening files. 
+worked with my partner Collin on collecting record files using itertools
+
+demultiplexing runs on the unit test files
+
+wrote code to output a run summary file and histogram
+made sure to have summary of matched numbers rather than length of dictionary
+each run makes a new folder with the bash script for the results.
+
+finally started a run!
+$ sbatch demux.srun 1
+        Submitted batch job 21827885
+        #!/bin/bash
+        #SBATCH --account=bgmp                  ### Account used for job submission
+        #SBATCH --partition=bgmp                ### Partition (like a queue in PBS)
+        #SBATCH --account=bgmp                  ### Account used for job submission
+        #SBATCH --job-name=demux                ### Job Name
+        #SBATCH --output=OUT/demux_%j.out            ### File in which to store job output
+        #SBATCH --error=OUT/demux_%j.err             ### File in which to store job error messages
+        #SBATCH --nodes=1                       ### Number of nodes needed for the job
+        #SBATCH --ntasks=1                      ### Number of tasks per array job
+        #SBATCH --ntasks-per-node=1             ### Number of tasks to be launched per Node
+        #SBATCH --mail-type=END                 ### Mail events (NONE, BEGIN, END, FA$
+        #SBATCH --mail-user=kli8@uoregon.edu    ### Where to send mail
+        #SBATCH --cpus-per-task=8               ### Number of CPU cores per task (edited)
+

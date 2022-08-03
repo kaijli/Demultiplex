@@ -94,25 +94,38 @@ def rev_comp(seq: str, RNAflag: bool = False) -> str:
             reverse_complement = "".join(RNAcomplement.get(base, base) for base in reversed(seq))
     return reverse_complement
 
-def check_index(index: str, index_set: set) -> bool:
+def check_indexes(index1: str, rev_index2: str, index_set: set) -> bool:
     '''
-    takes an index string and checks if it's in a set of indexes
+    takes index1 string and reverse of index2 string
+    checks both are in a set of indexes
     '''
     known = False
-    if index in index_set:
+    # print(f"{index1=}\t{rev_index2=}")
+    if index1 in index_set and rev_index2 in index_set:
         known = True
+    # print(known)
     return known
 
-def check_qscores(phred_score: str, cutoff: int = 30) -> bool:
+def check_qscores(phred_score1: str, phred_score2: str, cutoff: int = 30, stat: str = "avg") -> bool:
     '''
-    checks if any q score in phred string is below cutoff
+    takes two phred strings for set of indexes
+    returns whether both are above cutoff
+    stat indicates whether it's each qscore or average of string
+    indv = checks if any q score in phred string is below cutoff
+    avg = checks if average q score of phred string is below cutoff
     cutoff is inclusive
     '''
     good = False
-    arr = qs_arr(phred_score)
-    new_arr = np.array(it.takewhile(lambda x: x >=cutoff, arr))
-    if np.array_equal(arr, new_arr):
-        good = True
+    if stat == "indv":
+        arr1 = qs_arr(phred_score1)
+        arr2 = qs_arr(phred_score2)
+        new_arr1 = np.array(it.takewhile(lambda x: x >=cutoff, arr1))
+        new_arr2 = np.array(it.takewhile(lambda x: x >=cutoff, arr2))
+        if np.array_equal(arr1, new_arr1) and np.array_equal(arr2, new_arr2):
+            good = True
+    elif stat == "avg":
+        if qual_score(phred_score1) >= cutoff and qual_score(phred_score2) >= cutoff:
+            good = True
     return good
 
 

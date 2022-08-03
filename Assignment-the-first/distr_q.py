@@ -53,7 +53,6 @@ def plot_dists(arr):
     ax.bar(range(len(arr)), arr)
     plt.xlabel('Read Position')
     plt.ylabel('Mean Quality Score')
-    plt.title('Mean Quality Scores of Illumina Read Base Pairs')
     plt.title(f"Mean Quality Scores of Illumina Read Base Pairs\n{filename}")
     plt.savefig(f"hist{it}.png")
 
