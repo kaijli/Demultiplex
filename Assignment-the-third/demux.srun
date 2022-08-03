@@ -23,5 +23,8 @@ mkdir fq_out_$1
 
 conda activate bgmp_py310
 /usr/bin/time -v python demultiplex.py -k $k -1 $r1 -2 $i1 -3 $i2 -4 $r2 -t $trialnum -c 30 
+echo "Demultiplexed. Now compressing files."
+cd fq_out_$1
+/usr/bin/time -v gzip *.fq
 
 exit

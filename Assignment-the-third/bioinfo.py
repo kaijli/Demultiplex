@@ -5,19 +5,19 @@
 #   - https://docs.python.org/3/tutorial/modules.html
 #   - https://python101.pythonlibrary.org/chapter36_creating_modules_and_packages.html
 #   - and many more: https://www.google.com/search?q=how+to+write+a+python+module
-'''This module is a collection of useful bioinformatics functions
+"""This module is a collection of useful bioinformatics functions
 written during the Bioinformatics and Genomics Program coursework.
-'''
+"""
 __version__ = "0.6"         # Read way more about versioning here:
                             # https://en.wikipedia.org/wiki/Software_versioning
 
 import numpy as np
 import itertools as it
 
-DNAbases = set('ACGTNacgtn') #each individual base as capital or lowercase
-RNAbases = set('ACGUNacgun')
-DNAcomplement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A', 'N':'N'} 
-RNAcomplement = {'A': 'U', 'C': 'G', 'G': 'C', 'U': 'A', 'N':'N'} 
+DNAbases = set("ACGTNacgtn") #each individual base as capital or lowercase
+RNAbases = set("ACGUNacgun")
+DNAcomplement = {"A": "T", "C": "G", "G": "C", "T": "A", "N":"N"} 
+RNAcomplement = {"A": "U", "C": "G", "G": "C", "U": "A", "N":"N"} 
 
 print("in my Bioinfo module, __name__ is:", __name__)
 
@@ -50,19 +50,19 @@ def qs_arr(phred_score: str) -> np.ndarray:
     return arr
 
 def validate_base_seq(seq: str,RNAflag: bool = False) -> bool:
-    '''This function takes a string. Returns True if string is composed
-    of only As, Ts (or Us if RNAflag), Gs, Cs. False otherwise. Case insensitive.'''
+    """This function takes a string. Returns True if string is composed
+    of only As, Ts (or Us if RNAflag), Gs, Cs. False otherwise. Case insensitive."""
     return set(seq)<=(RNAbases if RNAflag else DNAbases)
 
 def gc_content(seq: str) -> float:
-    gc_bases = seq.count('C') + seq.count('G')
+    gc_bases = seq.count("C") + seq.count("G")
     return gc_bases/len(seq)
 
 def oneline_fasta(filein: str, fileout: str):
-    '''
+    """
     Thie function takes a fasta file where the sequences have line breaks in them.
     It takes two filenames, and makes a new files with the name input second. 
-    '''
+    """
     collect_seqs = {}
     with open(filein, "r") as fh:
         header = ""
@@ -94,27 +94,26 @@ def rev_comp(seq: str, RNAflag: bool = False) -> str:
             reverse_complement = "".join(RNAcomplement.get(base, base) for base in reversed(seq))
     return reverse_complement
 
-def check_indexes(index1: str, rev_index2: str, index_set: set) -> bool:
-    '''
+def check_indexes(index_pair: tuple, index_set: set) -> bool:
+    """
     takes index1 string and reverse of index2 string
     checks both are in a set of indexes
-    '''
+    """
     known = False
-    # print(f"{index1=}\t{rev_index2=}")
-    if index1 in index_set and rev_index2 in index_set:
+    if index_pair[0] in index_set and index_pair[1] in index_set:
         known = True
     # print(known)
     return known
 
 def check_qscores(phred_score1: str, phred_score2: str, cutoff: int = 30, stat: str = "avg") -> bool:
-    '''
+    """
     takes two phred strings for set of indexes
     returns whether both are above cutoff
-    stat indicates whether it's each qscore or average of string
+    stat indicates whether it"s each qscore or average of string
     indv = checks if any q score in phred string is below cutoff
     avg = checks if average q score of phred string is below cutoff
     cutoff is inclusive
-    '''
+    """
     good = False
     if stat == "indv":
         arr1 = qs_arr(phred_score1)

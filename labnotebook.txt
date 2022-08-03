@@ -263,3 +263,6 @@ $ sbatch demux.srun 1
         #SBATCH --mail-user=kli8@uoregon.edu    ### Where to send mail
         #SBATCH --cpus-per-task=8               ### Number of CPU cores per task (edited)
 
+while that's running, added a bunch more summary files to go with output fqs
+First run finished in 3 hr, 25 minutes. 
+second run will also gzip files. 
