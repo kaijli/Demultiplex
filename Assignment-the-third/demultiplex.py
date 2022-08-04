@@ -36,7 +36,7 @@ test files
 # read1 = "/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/TEST-input_FASTQ/r1_unit_test.fq"
 # read2 = "/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/TEST-input_FASTQ/i2_unit_test.fq"
 # known = "indexes_ids.txt"
-
+print("Starting python script")
 '''
 define and set variables
 '''
@@ -188,14 +188,15 @@ sorted_matched = dict(sorted(matched_indexes.items(), key=lambda item: item[1], 
 '''
 function for summary statistics
 '''
-def write_dict_tsv(data_dict):
-    with open(f"fq_out_{trial}/{data_dict}_counts.tsv", "w") as fh:
+def write_dict_tsv(data_dict:dict, name: str):
+    with open(f"fq_out_{trial}/{name}_counts.tsv", "w") as fh:
         for index, count in data_dict.items():
             fh.write(f"{index}\t{count}\n")
 
 '''
 write out summary statistics
 '''
+print("writing summary statistics")
 with open(f"fq_out_{trial}/run_summary.txt", "w") as fh:
     fh.write(f"Demultiplexing Run Number {trial} Summary\n")
     fh.write(f"Read 1 File:\t{read1}\n")
@@ -209,8 +210,8 @@ with open(f"fq_out_{trial}/run_summary.txt", "w") as fh:
     fh.write(f"Number of Hopped Records:\t{hopped}\n")
     fh.write(f"Number of Matched Records:\t{matched}\n")
 
-write_dict_tsv(sorted_matched)
-write_dict_tsv(hopped_pair)
+write_dict_tsv(sorted_matched, "sorted_matched")
+write_dict_tsv(hopped_pair, "hopped_pair")
 
 
 '''

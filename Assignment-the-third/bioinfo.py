@@ -14,8 +14,8 @@ __version__ = "0.6"         # Read way more about versioning here:
 import numpy as np
 import itertools as it
 
-DNAbases = set("ACGTNacgtn") #each individual base as capital or lowercase
-RNAbases = set("ACGUNacgun")
+DNA_bases = set("ACGTNacgtn") #each individual base as capital or lowercase
+RNA_bases = set("ACGUNacgun")
 DNAcomplement = {"A": "T", "C": "G", "G": "C", "T": "A", "N":"N"} 
 RNAcomplement = {"A": "U", "C": "G", "G": "C", "U": "A", "N":"N"} 
 
@@ -52,7 +52,7 @@ def qs_arr(phred_score: str) -> np.ndarray:
 def validate_base_seq(seq: str,RNAflag: bool = False) -> bool:
     """This function takes a string. Returns True if string is composed
     of only As, Ts (or Us if RNAflag), Gs, Cs. False otherwise. Case insensitive."""
-    return set(seq)<=(RNAbases if RNAflag else DNAbases)
+    return set(seq)<=(RNA_bases if RNAflag else DNA_bases)
 
 def gc_content(seq: str) -> float:
     gc_bases = seq.count("C") + seq.count("G")
@@ -155,7 +155,7 @@ if __name__ == "__main__":
     with open("one_lined.txt", "r") as fh:
         for line in fh:
             lines += 1
-    assert lines != 2, "Does not work on removing \n from seqs"
+    assert lines == 2, "Does not work on removing \n from seqs"
 
     if os.path.exists("one_lined.txt"):
         os.remove("one_lined.txt")

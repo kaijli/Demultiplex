@@ -1,6 +1,6 @@
-------------------------------------
-*            Demultiplex           *
-------------------------------------
+---------------------------------------
+*            Demultiplexing           *
+---------------------------------------
 
 Run interactive session in talaps:
 $ srun --account=bgmp --partition=bgmp --nodes=1 --ntasks-per-node=1 --time=1:00:00 --cpus-per-task=1 --pty bash
@@ -163,6 +163,9 @@ it'll do for now.
 open files at top and not in loops, it's a lot faster. 
 check N, then Q Score, bc N will have bad Q Scores by default.
 
++++++++++++++++++++++++++++++++++
++ Part 2 – Pseudo Code Feedback +
++++++++++++++++++++++++++++++++++
 
 Got some feedback for pseudo code:
 
@@ -234,6 +237,11 @@ looking up how to be more efficient in opening and reading 4 lines at a time
 ------------------------------------------------------
 --> 08/03/2022 <--
 ------------------------------------------------------
+
+++++++++++++++++++++++++++++++++++++++++++++++
++ Part 3 – Demultiplexing and Index Swapping +
+++++++++++++++++++++++++++++++++++++++++++++++
+
 wrote functinos for writing out to fqs, collecting records, and checking
 indexes for qscore and matching. the first two are in the demux py file
 the other two are in the bioinfo py file. 
@@ -266,3 +274,10 @@ $ sbatch demux.srun 1
 while that's running, added a bunch more summary files to go with output fqs
 First run finished in 3 hr, 25 minutes. 
 second run will also gzip files. 
+
+------------------------------------------------------
+--> 08/04/2022 <--
+------------------------------------------------------
+Second run finished in 3:29:15, but it seemed as though all files were gzipped before bash command?
+it also exited before making plots and summary tsvs.
+running again after fixing file naming error. 

@@ -111,7 +111,7 @@ if __name__ == "__main__":
     with open("one_lined.txt", "r") as fh:
         for line in fh:
             lines += 1
-    assert lines != 2, "Does not work on removing \n from seqs"
+    assert lines == 2, "Does not work on removing \n from seqs"
 
     if os.path.exists("one_lined.txt"):
         os.remove("one_lined.txt")
