@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --partition=bgmp            ### Partition (like a queue in PBS)
 #SBATCH --job-name=qdist            ### Job Name
-#SBATCH --output=output/qdist_%j.out        ### File in which to store job output
-#SBATCH --error=output/qdist_%j.err         ### File in which to store job error messages
+#SBATCH --output=/projects/bgmp/kli8/bioinformatics/Bi622/QAA/output/qdist_%j.out        ### File in which to store job output
+#SBATCH --error=/projects/bgmp/kli8/bioinformatics/Bi622/QAA/output/qdist_%j.err         ### File in which to store job error messages
 
 #SBATCH --nodes=1                   ### Number of nodes needed for the job
 #SBATCH --ntasks-per-node=1         ### Number of tasks to be launched per Node
@@ -15,4 +15,4 @@ conda install numpy
 py_path="/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/Assignment-the-first/distr_q.py"
 data_path="/projects/bgmp/shared/2017_sequencing"
 
-/usr/bin/time -v python $py_path -f $1 -r $2 -i $3
+/usr/bin/time -v python $py_path -f $1 -r $2 -i $3 -d $4

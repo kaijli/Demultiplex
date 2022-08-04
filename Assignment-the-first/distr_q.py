@@ -10,12 +10,14 @@ def get_args():
     parser.add_argument("-r", "--reads", help="read length of each fq entry", type=int, required=False)
     parser.add_argument("-f", "--filename", help="file for processing", type=str, required=False)
     parser.add_argument("-i", "--iteration", help="run number for naming plots", type=int, required=False)
+    parser.add_argument("-d", "--directory", help="output directory for plots", type=str, required=False, default=".")
     return parser.parse_args()
 
 args = get_args()
 filename = args.filename
 reads = args.reads
 it = args.iteration
+dir = args.directory 
 # reads = 101
 
 # read1 = "/projects/bgmp/shared/2017_sequencing/1294_S1_L008_R1_001.fastq.gz"
@@ -54,7 +56,7 @@ def plot_dists(arr):
     plt.xlabel('Read Position')
     plt.ylabel('Mean Quality Score')
     plt.title(f"Mean Quality Scores of Illumina Read Base Pairs\n{filename}")
-    plt.savefig(f"hist{it}.png")
+    plt.savefig(f"{dir}/hist{it}.png")
 
 means = mean_qscores(filename, reads)
 plot_dists(means)
