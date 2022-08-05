@@ -1,4 +1,3 @@
-from typing import Any
 import numpy as np
 import bioinfo as b
 import matplotlib.pyplot as plt
@@ -30,13 +29,13 @@ style = args.cutoffstyle
 '''
 test files
 '''
-
 # index1 = "/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/TEST-input_FASTQ/i1_unit_test.fq"
 # index2 = "/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/TEST-input_FASTQ/i2_unit_test.fq"
 # read1 = "/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/TEST-input_FASTQ/r1_unit_test.fq"
 # read2 = "/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/TEST-input_FASTQ/i2_unit_test.fq"
 # known = "indexes_ids.txt"
 print("Starting python script")
+
 '''
 define and set variables
 '''
@@ -187,6 +186,7 @@ proportions["unknown"] = unknown/total
 sorted_proportions = dict(sorted(proportions.items(), key=lambda item: item[1], reverse = True))
 sorted_matched = dict(sorted(matched_indexes.items(), key=lambda item: item[1], reverse = True))
 sorted_hopped = dict(sorted(hopped_indexes.items(), key=lambda item: item[1], reverse = True))
+
 '''
 function for summary statistics
 '''
@@ -208,9 +208,11 @@ with open(f"demux_out_{trial}/run_summary.txt", "w") as fh:
     fh.write(f"Index File:\t{known}\n")
     fh.write(f"QScore Cutoff:\t{cutoff}\n")
     fh.write(f"QScore Cutoff Style:\t{style}\n")
+    fh.write(f"\nThe following are per original read files.\n")
     fh.write(f"Number of Unknown Records:\t{unknown}\n")
     fh.write(f"Number of Hopped Records:\t{hopped}\n")
     fh.write(f"Number of Matched Records:\t{matched}\n")
+    fh.write(f"Total Number of Records:\t{total}\n")
 
 write_dict_tsv(sorted_matched, "sorted_matched")
 write_dict_tsv(sorted_hopped, "sorted_hopped")
