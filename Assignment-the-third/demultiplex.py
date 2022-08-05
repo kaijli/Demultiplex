@@ -100,9 +100,9 @@ def hopped_counter(indexpair: tuple=("unknown", "unknown")):
 '''
 open all writing files
 '''
-write_files = {index:(open(f"fq_out_{trial}/r1_{sampleID}_{index}.fq", "w"), open(f"fq_out_{trial}/r2_{sampleID}_{index}.fq", "w")) for (index, sampleID) in index_IDs.items()}
-write_files["hopped"] = (open(f"fq_out_{trial}/r1_hopped.fq", "w"), open(f"fq_out_{trial}/r2_hopped.fq", "w"))
-write_files["unknown"] = (open(f"fq_out_{trial}/r1_unknown.fq", "w"), open(f"fq_out_{trial}/r2_unknown.fq", "w"))
+write_files = {index:(open(f"demux_out_{trial}/fq_files/r1_{sampleID}_{index}.fq", "w"), open(f"demux_out_{trial}/fq_files/r2_{sampleID}_{index}.fq", "w")) for (index, sampleID) in index_IDs.items()}
+write_files["hopped"] = (open(f"demux_out_{trial}/fq_files/r1_hopped.fq", "w"), open(f"demux_out_{trial}/fq_files/r2_hopped.fq", "w"))
+write_files["unknown"] = (open(f"demux_out_{trial}/fq_files/r1_unknown.fq", "w"), open(f"demux_out_{trial}/fq_files/r2_unknown.fq", "w"))
 
 
 '''
@@ -184,13 +184,14 @@ total = hopped + matched + unknown
 proportions["hopped"] = hopped/total
 proportions["matched"] = matched/total
 proportions["unknown"] = unknown/total
+sorted_proportions = dict(sorted(proportions.items(), key=lambda item: item[1], reverse = True))
 sorted_matched = dict(sorted(matched_indexes.items(), key=lambda item: item[1], reverse = True))
 sorted_hopped = dict(sorted(hopped_indexes.items(), key=lambda item: item[1], reverse = True))
 '''
 function for summary statistics
 '''
 def write_dict_tsv(data_dict:dict, name: str):
-    with open(f"fq_out_{trial}/{name}_counts.tsv", "w") as fh:
+    with open(f"demux_out_{trial}/{name}_counts.tsv", "w") as fh:
         for index, count in data_dict.items():
             fh.write(f"{index}\t{count}\n")
 
@@ -198,7 +199,7 @@ def write_dict_tsv(data_dict:dict, name: str):
 write out summary statistics
 '''
 print("writing summary statistics")
-with open(f"fq_out_{trial}/run_summary.txt", "w") as fh:
+with open(f"demux_out_{trial}/run_summary.txt", "w") as fh:
     fh.write(f"Demultiplexing Run Number {trial} Summary\n")
     fh.write(f"Read 1 File:\t{read1}\n")
     fh.write(f"Index 1 File:\t{index1}\n")
@@ -222,11 +223,11 @@ plotting various histograms
 print("plotting")
 # proportion of matched, hopped, and unknown records. 
 fig, ax = plt.subplots()
-ax.bar(list(proportions.keys()), list(proportions.values()))
+ax.bar(list(sorted_proportions.keys()), list(sorted_proportions.values()))
 plt.xlabel("Index Category")
 plt.ylabel("Proportion")
 plt.title("Proportion of Demux Categories")
-plt.savefig(f"fq_out_{trial}/proportion_hist.png", bbox_inches = "tight")
+plt.savefig(f"demux_out_{trial}/proportion_hist.png", bbox_inches = "tight")
 
 # the frequency of matched indexes
 fig, ax = plt.subplots()
@@ -235,7 +236,7 @@ plt.xticks(rotation = 35, ha = "right", fontsize=9)
 plt.xlabel("Index Pairs")
 plt.ylabel("Record Count")
 plt.title("Frequency of Matched Indexes")
-plt.savefig(f"fq_out_{trial}/matched_hist.png", bbox_inches = "tight")
+plt.savefig(f"demux_out_{trial}/matched_hist.png", bbox_inches = "tight")
 
 # the frequency of hopped indexes
 fig, ax = plt.subplots()
@@ -244,7 +245,7 @@ plt.xticks(rotation = 35, ha = "right", fontsize=9)
 plt.xlabel("Hopped Index")
 plt.ylabel("Record Count")
 plt.title("Frequency of Index Hops")
-plt.savefig(f"fq_out_{trial}/hopped_hist.png", bbox_inches = "tight")
+plt.savefig(f"demux_out_{trial}/hopped_hist.png", bbox_inches = "tight")
 
 # the frequency of hopped index pairings
 # x =  [str(i) for i in list(hopped_pair.keys())]
@@ -254,6 +255,6 @@ plt.savefig(f"fq_out_{trial}/hopped_hist.png", bbox_inches = "tight")
 # plt.xlabel("Hopped Index Pair")
 # plt.ylabel("Record Count")
 # plt.title("Frequency of Hopped Index Pairs")
-# plt.savefig(f"fq_out_{trial}/hopped_pairs_hist.png", bbox_inches = "tight")
+# plt.savefig(f"demux_out_{trial}/hopped_pairs_hist.png", bbox_inches = "tight")
 
 print("Finished!")

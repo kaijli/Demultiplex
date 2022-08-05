@@ -292,3 +292,6 @@ with all the plotting and whatnot, the python script itself took 4:37:09
 to cut down on that time, i'll stop collecting the hopped index pairings...
 or would it be better to just not make the graph? i think just not making the graph would be better. 
 i don't think i should cut corners on reporting info. the plot is just unreadable, hence the cutting out. 
+added fq_files/ to output directory to contain only the 52 fq files while summary stats stay in output dir
+renaming output dir to demux_out_
+renamed demux.srun to run_demux.srun for easier command line tabbing

@@ -19,12 +19,13 @@ r2=/projects/bgmp/shared/2017_sequencing/1294_S1_L008_R4_001.fastq.gz
 k=/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/Assignment-the-third/indexes_ids.txt
 trialnum=$1
 
-mkdir fq_out_$1
+mkdir demux_out_$1
+mkdir demux_out_$1/fq_files
 
 conda activate bgmp_py310
 /usr/bin/time -v python demultiplex.py -k $k -1 $r1 -2 $i1 -3 $i2 -4 $r2 -t $trialnum -c 30 
 echo "Demultiplexed. Now compressing files."
-cd fq_out_$1
+cd demux_out_$1/fq_files
 /usr/bin/time -v gzip *.fq
 echo "Finished compressing files"
 
