@@ -26,5 +26,6 @@ conda activate bgmp_py310
 echo "Demultiplexed. Now compressing files."
 cd fq_out_$1
 /usr/bin/time -v gzip *.fq
+echo "Finished compressing files"
 
 exit

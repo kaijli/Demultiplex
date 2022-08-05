@@ -46,7 +46,8 @@ i2_rec = np.array(4)
 r2_rec = np.array(4)
 index_IDs = dict()
 indexes = set()
-hopped_indexes, hopped_pair, matched_indexes = dict(),dict(),dict()
+hopped_indexes, matched_indexes = dict(),dict()
+hopped_pair = dict()
 write_files = dict()
 unknown, hopped, matched = 0,0,0
 
@@ -62,7 +63,7 @@ with open (known, "r") as fh:
 # print(sampleIDs)
 for key in index_IDs:
     indexes.add(key)
-print(indexes)
+# print(indexes)
 
 
 '''
@@ -184,7 +185,7 @@ proportions["hopped"] = hopped/total
 proportions["matched"] = matched/total
 proportions["unknown"] = unknown/total
 sorted_matched = dict(sorted(matched_indexes.items(), key=lambda item: item[1], reverse = True))
-
+sorted_hopped = dict(sorted(hopped_indexes.items(), key=lambda item: item[1], reverse = True))
 '''
 function for summary statistics
 '''
@@ -211,6 +212,7 @@ with open(f"fq_out_{trial}/run_summary.txt", "w") as fh:
     fh.write(f"Number of Matched Records:\t{matched}\n")
 
 write_dict_tsv(sorted_matched, "sorted_matched")
+write_dict_tsv(sorted_hopped, "sorted_hopped")
 write_dict_tsv(hopped_pair, "hopped_pair")
 
 
@@ -228,9 +230,7 @@ plt.savefig(f"fq_out_{trial}/proportion_hist.png", bbox_inches = "tight")
 
 # the frequency of matched indexes
 fig, ax = plt.subplots()
-x = list(sorted_matched.keys())
-y = list(sorted_matched.values())
-ax.bar(x, y)
+ax.bar(list(sorted_matched.keys()), list(sorted_matched.values()))
 plt.xticks(rotation = 35, ha = "right", fontsize=9)
 plt.xlabel("Index Pairs")
 plt.ylabel("Record Count")
@@ -239,7 +239,7 @@ plt.savefig(f"fq_out_{trial}/matched_hist.png", bbox_inches = "tight")
 
 # the frequency of hopped indexes
 fig, ax = plt.subplots()
-ax.bar(list(hopped_indexes.keys()), list(hopped_indexes.values()))
+ax.bar(list(sorted_hopped.keys()), list(sorted_hopped.values()))
 plt.xticks(rotation = 35, ha = "right", fontsize=9)
 plt.xlabel("Hopped Index")
 plt.ylabel("Record Count")
@@ -247,13 +247,13 @@ plt.title("Frequency of Index Hops")
 plt.savefig(f"fq_out_{trial}/hopped_hist.png", bbox_inches = "tight")
 
 # the frequency of hopped index pairings
-x =  [str(i) for i in list(hopped_pair.keys())]
-fig, ax = plt.subplots()
-ax.bar(x, list(hopped_pair.values()))
-plt.xticks(rotation = 35, ha = "right", fontsize=9)
-plt.xlabel("Hopped Index Pair")
-plt.ylabel("Record Count")
-plt.title("Frequency of Hopped Index Pairs")
-plt.savefig(f"fq_out_{trial}/hopped_pairs_hist.png", bbox_inches = "tight")
+# x =  [str(i) for i in list(hopped_pair.keys())]
+# fig, ax = plt.subplots()
+# ax.bar(x, list(hopped_pair.values()))
+# plt.xticks(rotation = 35, ha = "right", fontsize=9)
+# plt.xlabel("Hopped Index Pair")
+# plt.ylabel("Record Count")
+# plt.title("Frequency of Hopped Index Pairs")
+# plt.savefig(f"fq_out_{trial}/hopped_pairs_hist.png", bbox_inches = "tight")
 
 print("Finished!")
