@@ -96,6 +96,7 @@ def hopped_counter(indexpair: tuple=("unknown", "unknown")):
     else:
         hopped_pair[indexpair] += 1
 
+print("opening files")
 '''
 open all writing files
 '''

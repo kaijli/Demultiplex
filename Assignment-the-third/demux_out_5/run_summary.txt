@@ -1,0 +1,14 @@
+Demultiplexing Run Number 5 Summary
+Read 1 File:	/projects/bgmp/shared/2017_sequencing/1294_S1_L008_R1_001.fastq.gz
+Index 1 File:	/projects/bgmp/shared/2017_sequencing/1294_S1_L008_R2_001.fastq.gz
+Index 2 File:	/projects/bgmp/shared/2017_sequencing/1294_S1_L008_R3_001.fastq.gz
+Read 2 File:	/projects/bgmp/shared/2017_sequencing/1294_S1_L008_R4_001.fastq.gz
+Index File:	/projects/bgmp/kli8/bioinformatics/Bi622/Demultiplex/Assignment-the-third/indexes_ids.txt
+QScore Cutoff:	30
+QScore Cutoff Style:	avg
+
+The following are per original read files.
+Number of Unknown Records:	57748853
+Number of Hopped Records:	517612
+Number of Matched Records:	304980270
+Total Number of Records:	363246735

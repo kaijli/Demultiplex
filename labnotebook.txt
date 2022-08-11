@@ -295,3 +295,13 @@ i don't think i should cut corners on reporting info. the plot is just unreadabl
 added fq_files/ to output directory to contain only the 52 fq files while summary stats stay in output dir
 renaming output dir to demux_out_
 renamed demux.srun to run_demux.srun for easier command line tabbing
+
+changing gzip to pigz for faster compression. 
+gzip took 6:21:52 to compress all 52 files. started run 5 to see how pigz fares. 
+
+------------------------------------------------------
+--> 08/05/2022 <--
+------------------------------------------------------
+This time, the python code took 3:16:23 to run, and the pigz took 36:08.75, which is incredible.
+this took under 4 hours, which is how long the python code took to run last time. 
+i think it would be nice to have a stacked bar chart of matched and hopped for an index
